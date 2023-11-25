@@ -1,0 +1,117 @@
+html * {
+  box-sizing: border-box;
+}
+
+.screen {
+  display: grid;
+  grid-template-rows: 40px 1fr 150px 1fr;
+  gap: 5px 5px;
+  height: 100vh;
+  width: 100vw;
+  border: 2px solid red;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+/* current */
+
+.current {
+ display: grid;
+ grid-template: 90px 1fr / 1fr 1fr 1fr;
+ grid-template-areas:
+  "loc loc temp"
+  "img other other";
+ align-items: center;
+}
+
+.location {
+  display: flex;
+  flex-direction: column;
+  grid-area: loc;
+}
+
+.text-city {
+  font-size: 2.5rem;
+  margin-left: 10px;
+}
+
+.text-country {
+  font-size: 1.25rem;
+  margin-left: 10px;
+}
+
+.temperature {
+  display: flex;
+  justify-content: center;
+  align-items:baseline
+}
+
+.text-temp {
+  font-size: 3rem;
+  grid-area: temp;
+}
+
+.unit {
+  font-size: 1.5rem;
+  opacity: 0.75;
+}
+
+.image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.others {
+  grid-area: other;
+}
+
+/* hourly */
+
+.hourly {
+  display: grid;
+  grid-template-rows: 30px 1fr;
+  padding: 0 5px;
+}
+
+.hours {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.hour {
+  flex: 1;
+  border: 1px solid blue;
+  height: 100%;
+}
+
+.forecast {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 5px;
+  padding: 0 5px;
+}
+
+.day {
+  border: 1px solid gray
+}
+
+input {
+  height: 2rem;
+}
+
+#icon {
+  height: 64px;
+}
+
+ion-icon {
+  font-size: 2rem;
+}
