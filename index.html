@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+  <div class="screen">
+
+    <div class="search">
+      <input type="text" id="search" autocomplete="off">
+      <ion-icon name="search-circle-outline" id="btn-search"></ion-icon>
+    </div>
+    
+    <div class="current">
+        <div class="location">
+          <span class="text-city" id="text-city"></span>
+          <span class="text-country" id="text-country"></span>
+        </div>
+        <div class="temperature">
+          <span class="text-temp" id="text-temp"></span><span class="unit">°F</span>
+        </div>
+        <div class="image">
+          <img src="" alt="" id="icon">
+          <span class="text-description" id="text-description"></span>
+        </div>
+        <div class="others">
+
+        </div>
+    </div>
+
+    <div class="hourly">
+      <span id="hourly-text">Weather conditions for the next hours</span>
+      <div class="hours">
+        <div class="hour"></div>
+        <div class="hour"></div>
+        <div class="hour"></div>
+        <div class="hour"></div>
+        <div class="hour"></div>
+        <div class="hour"></div>
+      </div>
+    </div>
+
+    <div class="forecast">
+      <div class="day" id="day1-container">
+        <span>asdf</span>
+      </div>
+      <div class="day" id="day1-container"></div>
+      <div class="day" id="day1-container"></div>
+    </div>
+
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
