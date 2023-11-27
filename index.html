@@ -11,11 +11,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,400;1,500;1,600;1,700&family=Slabo+27px&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="screen">
+  <div class="screen" id="screen">
 
     <div class="search">
       <input type="text" id="search" autocomplete="off">
       <ion-icon name="search-circle-outline" id="btn-search"></ion-icon>
+      <label for="btn-search" id="error"></label>
     </div>
     
     <div class="current">
@@ -31,9 +32,7 @@
           <img src="" alt="" id="icon">
           <span class="text-description" id="text-description"></span>
         </div>
-        <div class="others">
-
-        </div>
+        <div class="others"></div>
     </div>
 
     <div class="hourly">
@@ -43,11 +42,8 @@
     </div>
 
     <div class="forecast">
-      <div class="day" id="day1-container">
-        <span>asdf</span>
-      </div>
-      <div class="day" id="day1-container"></div>
-      <div class="day" id="day1-container"></div>
+      <span>Next 3 days Forecast</span>
+      <div class="days" id="days"></div>
     </div>
 
   </div>
