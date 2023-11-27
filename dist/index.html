@@ -6,6 +6,9 @@
   <title>Document</title>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,400;1,500;1,600;1,700&family=Slabo+27px&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="screen">
@@ -19,6 +22,7 @@
         <div class="location">
           <span class="text-city" id="text-city"></span>
           <span class="text-country" id="text-country"></span>
+          <span class="text-time" id="text-time"></span>
         </div>
         <div class="temperature">
           <span class="text-temp" id="text-temp"></span><span class="unit">°F</span>
@@ -34,13 +38,7 @@
 
     <div class="hourly">
       <span id="hourly-text">Weather conditions for the next hours</span>
-      <div class="hours">
-        <div class="hour"></div>
-        <div class="hour"></div>
-        <div class="hour"></div>
-        <div class="hour"></div>
-        <div class="hour"></div>
-        <div class="hour"></div>
+      <div class="hours" id="hours">
       </div>
     </div>
 

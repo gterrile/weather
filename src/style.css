@@ -2,6 +2,10 @@ html * {
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Slabo 27px', serif;
+}
+
 .screen {
   display: grid;
   grid-template-rows: 40px 1fr 150px 1fr;
@@ -16,6 +20,7 @@ html * {
   justify-content: center;
   align-items: center;
   gap: 6px;
+  padding-top: 10px;
 }
 
 /* current */
@@ -42,6 +47,11 @@ html * {
 
 .text-country {
   font-size: 1.25rem;
+  margin-left: 10px;
+}
+
+.text-time {
+  font-size: 1.25;
   margin-left: 10px;
 }
 
