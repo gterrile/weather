@@ -1,18 +1,28 @@
 import './style.css'
 import './reset.css'
+import cities from 'cities.json';
 
-// const icon = document.getElementById('icon');
-// icon.src = '//cdn.weatherapi.com/weather/64x64/night/113.png'
-
+const error = document.getElementById('error');
 const searchButton = document.getElementById('btn-search')
+const searchField = document.getElementById('search');
+
 searchButton.addEventListener('click', function() {
-  const searchField = document.getElementById('search');
+  
+  // Validate search.value
   getWeather(searchField.value)
   getForecast(searchField.value)
 })
 
 async function getWeather(city) {
   const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=64e203b4a6a54f138eb52839232511&q=${city}`);
+  //console.log('response: ', response);
+
+  if (response.status === 401 || response.status === 403) {
+    error.textContent = 'Error on the API key';
+  } else if (response.status === 400) {
+    error.textContent = 'Error on the search parameters';
+  }
+
   const obj = await response.json();
   //console.log('current', obj);
   displayWeatherInfo(obj);
@@ -44,9 +54,7 @@ async function getForecast(city) {
 }
 
 function displayHourlyForecast(obj) {
-
   const hours = document.getElementById('hours');
-
   while(hours.firstChild) {
     hours.removeChild(hours.firstChild)
   }
@@ -55,8 +63,6 @@ function displayHourlyForecast(obj) {
   let currentHour = parseInt(localtime.split(':')[0]);
   let currentday = 0
   for (let i = 0; i < 5; i++) {
-
-    
 
     const hour = document.createElement('div');
     hour.classList.add('hour');
@@ -70,10 +76,6 @@ function displayHourlyForecast(obj) {
     const temp = document.createElement('span');
     hour.appendChild(temp);
     temp.textContent = obj.forecast.forecastday[currentday].hour[currentHour].temp_f + ' °F';
-
-    // console.log(((obj.forecast.forecastday[currentday].hour[currentHour].time).split(' ')[1]).split(':')[0])
-    // console.log(obj.forecast.forecastday[currentday].hour[currentHour].condition.icon)
-    // console.log(obj.forecast.forecastday[currentday].hour[currentHour].temp_f)
     
     if (currentHour < 23) {
       currentHour += 1
@@ -85,14 +87,48 @@ function displayHourlyForecast(obj) {
   }
 }
 
-
-
 function displayNextDaysForecast(obj) {
+  const days = document.getElementById('days')
+  while (days.firstChild) {
+    days.removeChild(days.firstChild);
+  }
 
+  //console.log(obj);
+  for (let i = 0; i < 3; i++) {
+    //console.log(obj.forecast.forecastday[i])
+    const day = document.createElement('div');
+    day.classList.add('day');
+    days.appendChild(day)
+
+    const date = document.createElement('span');
+    date.textContent = (obj.forecast.forecastday[i].date).split('-')[2]
+    day.appendChild(date);
+    const icon = document.createElement('img');
+    icon.src = obj.forecast.forecastday[i].day.condition.icon
+    day.appendChild(icon)
+    const description = document.createElement('span');
+    description.textContent = obj.forecast.forecastday[i].day.condition.text
+    day.appendChild(description)
+    const minTemp = document.createElement('span');
+    minTemp.textContent = obj.forecast.forecastday[i].day.mintemp_f + ' °F';
+    day.appendChild(minTemp)
+    const maxTemp = document.createElement('span');
+    maxTemp.textContent = obj.forecast.forecastday[i].day.maxtemp_f + ' °F';
+    day.appendChild(maxTemp)
+    
+    //console.log((obj.forecast.forecastday[i].date).split('-')[2])
+    console.log(obj.forecast.forecastday[i].astro.sunrise)
+    console.log(obj.forecast.forecastday[i].astro.sunset)
+    console.log(obj.forecast.forecastday[i].day.maxtemp_f)
+    console.log(obj.forecast.forecastday[i].day.mintemp_f)
+    console.log(obj.forecast.forecastday[i].day.condition.text)
+    console.log(obj.forecast.forecastday[i].day.condition.icon)
+  } 
 }
 
-getWeather('Buenos Aires')
-getForecast('Buenos Aires')
+let randomLocation = parseInt(Math.random() * cities.length);
+getWeather(cities[randomLocation].name)
+getForecast(cities[randomLocation].name)
 
 
 

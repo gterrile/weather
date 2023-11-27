@@ -7,11 +7,14 @@ body {
 }
 
 .screen {
+  margin: 0 auto;
   display: grid;
-  grid-template-rows: 40px 1fr 150px 1fr;
+  grid-template-rows: 75px 1fr 150px 1fr;
   gap: 5px 5px;
   height: 100vh;
   width: 100vw;
+  min-width: 375px;
+  max-width: 750px;
   border: 2px solid red;
 }
 
@@ -20,17 +23,16 @@ body {
   justify-content: center;
   align-items: center;
   gap: 6px;
-  padding-top: 10px;
 }
 
 /* current */
 
 .current {
  display: grid;
- grid-template: 90px 1fr / 1fr 1fr 1fr;
+ grid-template: 1fr 1fr / 1fr 1fr 1fr;
  grid-template-areas:
   "loc loc temp"
-  "img other other";
+  "img other temp";
  align-items: center;
 }
 
@@ -58,7 +60,8 @@ body {
 .temperature {
   display: flex;
   justify-content: center;
-  align-items:baseline
+  align-items:baseline;
+  grid-area: temp;
 }
 
 .text-temp {
@@ -98,20 +101,34 @@ body {
 }
 
 .hour {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   flex: 1;
   border: 1px solid blue;
   height: 100%;
 }
 
+
+/* forecast */
+
 .forecast {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 30px 1fr;
   gap: 5px;
   padding: 0 5px;
 }
 
+.days {
+  border: 1px solid gray;
+  margin-bottom: 5px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
 .day {
-  border: 1px solid gray
+  border: 1px solid blue;
 }
 
 input {
