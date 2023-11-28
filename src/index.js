@@ -9,15 +9,15 @@ const toggle = document.getElementById('toggle');
 let showingLocation = 'Los Angeles'
 let unit = 'f'
 
-toggle.textContent = unit
+toggle.textContent = '°F'
 toggle.addEventListener('click', function() {
   toggle.classList.toggle('c')
   if (toggle.classList.contains('c')) {
-    toggle.textContent = 'c'
+    toggle.textContent = '°C'
     unit = 'c'
     getWeather(showingLocation)
   } else {
-    toggle.textContent = 'f'
+    toggle.textContent = '°F'
     unit = 'f'
     getWeather(showingLocation)
   }
@@ -87,7 +87,32 @@ async function getForecast(city) {
     const obj = await response.json();
     displayHourlyForecast(obj);
     displayNextDaysForecast(obj);
+    let localTime = parseInt(((obj.location.localtime).split(' ')[1]).split(':')[0])
+    setBackgound(localTime)
   }
+}
+
+function setBackgound(time) {
+  const body = document.getElementById('body');
+  const search = document.getElementById('search');
+  if (time >= 0 && time < 6) {
+    body.style.background = 'linear-gradient(0deg, rgba(7,9,36,1) 0%, rgba(29,25,102,1) 100%)';
+    body.style.color = 'white'
+    search.style.color = 'white'
+  } else if (time >= 6 && time < 12) {
+    body.style.background = 'linear-gradient(0deg, rgba(231,164,89,1) 0%, rgba(254,255,175,1) 60%)';
+    body.style.color = 'black'
+    search.style.color = 'black'
+  } else if (time >= 12 && time < 18) {
+    body.style.background = 'linear-gradient(0deg, rgb(160, 49, 49) 0%, rgb(255, 218, 175) 80%)';
+    body.style.color = 'black'
+    search.style.color = 'black'
+  } else {
+    body.style.background = 'linear-gradient(0deg, rgb(38, 25, 78) 0%, rgb(85, 35, 47) 89%)';
+    body.style.color = 'white'
+    search.style.color = 'white'
+  }
+  
 }
 
 function displayHourlyForecast(obj) {
@@ -181,12 +206,12 @@ function displayNextDaysForecast(obj) {
 
     
     //console.log((obj.forecast.forecastday[i].date).split('-')[2])
-    console.log(obj.forecast.forecastday[i].astro.sunrise)
-    console.log(obj.forecast.forecastday[i].astro.sunset)
-    console.log(obj.forecast.forecastday[i].day.maxtemp_f)
-    console.log(obj.forecast.forecastday[i].day.mintemp_f)
-    console.log(obj.forecast.forecastday[i].day.condition.text)
-    console.log(obj.forecast.forecastday[i].day.condition.icon)
+    // console.log(obj.forecast.forecastday[i].astro.sunrise)
+    // console.log(obj.forecast.forecastday[i].astro.sunset)
+    // console.log(obj.forecast.forecastday[i].day.maxtemp_f)
+    // console.log(obj.forecast.forecastday[i].day.mintemp_f)
+    // console.log(obj.forecast.forecastday[i].day.condition.text)
+    // console.log(obj.forecast.forecastday[i].day.condition.icon)
   } 
 }
 

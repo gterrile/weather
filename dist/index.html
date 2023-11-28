@@ -8,20 +8,20 @@
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,400;1,500;1,600;1,700&family=Slabo+27px&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Manrope:wght@200;300;400;500;600;700;800&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,400;1,500;1,600;1,700&family=Slabo+27px&display=swap" rel="stylesheet">
 </head>
-<body>
+<body id="body">
   <div class="screen" id="screen">
 
     <div class="header">
       <div class="space"></div>
       <div class="search">
         <div class="search-line">
-          <input type="text" id="search" autocomplete="off">
+          <input type="text" id="search" autocomplete="off" autofocus placeholder="search location">
           <ion-icon name="search-circle-outline" id="btn-search"></ion-icon>
         </div>
       </div>
-      <label for="btn-search" id="error"></label>
+      <small for="btn-search" id="error"></small>
       <div class="toggle" id="toggle"></div>
     </div>
     
