@@ -5,12 +5,32 @@ import cities from 'cities.json';
 const error = document.getElementById('error');
 const searchButton = document.getElementById('btn-search')
 const searchField = document.getElementById('search');
+const toggle = document.getElementById('toggle');
+let showingLocation = 'Los Angeles'
+let unit = 'f'
+
+toggle.textContent = unit
+toggle.addEventListener('click', function() {
+  toggle.classList.toggle('c')
+  if (toggle.classList.contains('c')) {
+    toggle.textContent = 'c'
+    unit = 'c'
+    getWeather(showingLocation)
+  } else {
+    toggle.textContent = 'f'
+    unit = 'f'
+    getWeather(showingLocation)
+  }
+})
+
 
 searchButton.addEventListener('click', function() {
   
   // Validate search.value
-  getWeather(searchField.value)
-  getForecast(searchField.value)
+  if (searchField.value) {
+    showingLocation = searchField.value
+  }
+  getWeather(showingLocation)
 })
 
 async function getWeather(city) {
@@ -21,14 +41,19 @@ async function getWeather(city) {
     error.textContent = 'Error on the API key';
   } else if (response.status === 400) {
     error.textContent = 'Error on the search parameters';
+  } else {
+    const obj = await response.json();
+    displayWeatherInfo(obj);
+    error.textContent = '';
+    searchField.value = '';
+    getForecast(city)
   }
 
-  const obj = await response.json();
-  //console.log('current', obj);
-  displayWeatherInfo(obj);
+
 }
 
 function displayWeatherInfo(obj) {
+  
   const city = document.getElementById('text-city');
   city.textContent = obj.location.name;
   const country = document.getElementById('text-country');
@@ -38,19 +63,31 @@ function displayWeatherInfo(obj) {
   const time = document.getElementById('text-time');
   time.textContent = localTime;
   const temp = document.getElementById('text-temp');
-  temp.textContent = obj.current.temp_f
+  if (unit == 'f') {
+    temp.textContent = obj.current.temp_f + '°F'
+  } else {
+    temp.textContent = obj.current.temp_c + '°C'
+  }
   const description = document.getElementById('text-description');
   description.textContent = obj.current.condition.text;
   const icon = document.getElementById('icon');
   icon.src = obj.current.condition.icon
+
+  error.textContent = ' ';
 }
 
 async function getForecast(city) {
   const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=64e203b4a6a54f138eb52839232511&q=${city}&days=3`);
-  const obj = await response.json();
-  //console.log('forecast', obj);
-  displayHourlyForecast(obj);
-  displayNextDaysForecast(obj);
+  
+  if (response.status === 401 || response.status === 403) {
+    error.textContent = 'Error on the API key';
+  } else if (response.status === 400) {
+    error.textContent = 'Error on the search parameters';
+  } else {
+    const obj = await response.json();
+    displayHourlyForecast(obj);
+    displayNextDaysForecast(obj);
+  }
 }
 
 function displayHourlyForecast(obj) {
@@ -70,12 +107,18 @@ function displayHourlyForecast(obj) {
     const time = document.createElement('span');
     hour.appendChild(time);
     time.textContent = ((obj.forecast.forecastday[currentday].hour[currentHour].time).split(' ')[1]).split(':')[0];
+    time.style.fontSize = '1.25rem'
     const icon = document.createElement('img');
     hour.appendChild(icon);
     icon.src = obj.forecast.forecastday[currentday].hour[currentHour].condition.icon;
     const temp = document.createElement('span');
     hour.appendChild(temp);
-    temp.textContent = obj.forecast.forecastday[currentday].hour[currentHour].temp_f + ' °F';
+    if (unit == 'f') {
+      temp.textContent = obj.forecast.forecastday[currentday].hour[currentHour].temp_f + ' °F';
+    } else {
+      temp.textContent = obj.forecast.forecastday[currentday].hour[currentHour].temp_c + ' °C';
+    }
+
     
     if (currentHour < 23) {
       currentHour += 1
@@ -100,21 +143,42 @@ function displayNextDaysForecast(obj) {
     day.classList.add('day');
     days.appendChild(day)
 
+    const left = document.createElement('div');
+    left.classList.add('left');
+    day.appendChild(left)
     const date = document.createElement('span');
     date.textContent = (obj.forecast.forecastday[i].date).split('-')[2]
-    day.appendChild(date);
+    left.appendChild(date);
     const icon = document.createElement('img');
     icon.src = obj.forecast.forecastday[i].day.condition.icon
-    day.appendChild(icon)
+    left.appendChild(icon)
+
+    const middle = document.createElement('div');
+    middle.classList.add('middle');
+    day.appendChild(middle)
     const description = document.createElement('span');
     description.textContent = obj.forecast.forecastday[i].day.condition.text
-    day.appendChild(description)
-    const minTemp = document.createElement('span');
-    minTemp.textContent = obj.forecast.forecastday[i].day.mintemp_f + ' °F';
-    day.appendChild(minTemp)
+    middle.appendChild(description)
+
+    const right = document.createElement('div');
+    right.classList.add('right');
+    day.appendChild(right)
     const maxTemp = document.createElement('span');
-    maxTemp.textContent = obj.forecast.forecastday[i].day.maxtemp_f + ' °F';
-    day.appendChild(maxTemp)
+    if (unit == 'f') {
+      maxTemp.textContent = 'Max temp: ' + obj.forecast.forecastday[i].day.maxtemp_f + ' °F';
+    } else {
+      maxTemp.textContent = 'Max temp: ' + obj.forecast.forecastday[i].day.maxtemp_c + ' °C';
+    }
+    right.appendChild(maxTemp)
+    const minTemp = document.createElement('span');
+    if (unit == 'f') {
+      minTemp.textContent = 'Min temp: ' + obj.forecast.forecastday[i].day.mintemp_f + ' °F';
+    } else {
+      minTemp.textContent = 'Min temp: ' + obj.forecast.forecastday[i].day.mintemp_c + ' °C';
+    }
+    right.appendChild(minTemp)
+
+
     
     //console.log((obj.forecast.forecastday[i].date).split('-')[2])
     console.log(obj.forecast.forecastday[i].astro.sunrise)
@@ -126,9 +190,11 @@ function displayNextDaysForecast(obj) {
   } 
 }
 
-let randomLocation = parseInt(Math.random() * cities.length);
-getWeather(cities[randomLocation].name)
-getForecast(cities[randomLocation].name)
+// let randomLocation = parseInt(Math.random() * cities.length);
+// getWeather(cities[randomLocation].name)
+// getForecast(cities[randomLocation].name)
+
+getWeather(showingLocation)
 
 
 
