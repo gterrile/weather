@@ -13,10 +13,16 @@
 <body>
   <div class="screen" id="screen">
 
-    <div class="search">
-      <input type="text" id="search" autocomplete="off">
-      <ion-icon name="search-circle-outline" id="btn-search"></ion-icon>
+    <div class="header">
+      <div class="space"></div>
+      <div class="search">
+        <div class="search-line">
+          <input type="text" id="search" autocomplete="off">
+          <ion-icon name="search-circle-outline" id="btn-search"></ion-icon>
+        </div>
+      </div>
       <label for="btn-search" id="error"></label>
+      <div class="toggle" id="toggle"></div>
     </div>
     
     <div class="current">
@@ -26,7 +32,7 @@
           <span class="text-time" id="text-time"></span>
         </div>
         <div class="temperature">
-          <span class="text-temp" id="text-temp"></span><span class="unit">°F</span>
+          <span class="text-temp" id="text-temp"></span>
         </div>
         <div class="image">
           <img src="" alt="" id="icon">
