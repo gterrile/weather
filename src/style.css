@@ -108,7 +108,7 @@ ion-icon:hover {
  grid-template: 1fr 1fr / 1fr 1fr 1fr;
  grid-template-areas:
   "loc loc temp"
-  "img other temp";
+  "img img temp";
  align-items: center;
 }
 
@@ -120,18 +120,17 @@ ion-icon:hover {
 
 .text-city {
   font-size: 3rem;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 .text-country {
   font-size: 1.2rem;
-  margin-left: 10px;
+  margin-left: 20px;
   font-style: italic;
 }
 
 .text-time {
-  font-size: 1.25;
-  margin-left: 10px;
+  padding: 0 20px;
   margin-top: 20px;
 }
 
@@ -140,6 +139,7 @@ ion-icon:hover {
   justify-content: center;
   align-items:baseline;
   grid-area: temp;
+  margin-right: 30px;
 }
 
 .text-temp {
@@ -154,9 +154,10 @@ ion-icon:hover {
 
 .image {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+  grid-area: img;
 }
 
 .others {
@@ -168,7 +169,11 @@ ion-icon:hover {
 .hourly {
   display: grid;
   grid-template-rows: 25px 1fr;
-  padding: 0 5px;
+}
+
+#hourly-text {
+  font-size: 0.8rem;
+  margin-left: 20px;
 }
 
 .hours {
@@ -176,6 +181,7 @@ ion-icon:hover {
   flex-direction: row;
   justify-content: space-between;
   gap: 5px;
+  padding: 0 20px;
 }
 
 .hour {
@@ -184,7 +190,6 @@ ion-icon:hover {
   justify-content: center;
   align-items: center;
   flex: 1;
-  border: 1px solid rgb(196, 196, 196);
   border-radius: 3px;
   height: 100%;
 }
@@ -192,12 +197,16 @@ ion-icon:hover {
 
 /* forecast */
 
+.forecast-text {
+  margin-left: 20px;
+  font-size: 0.8rem;
+}
+
 .forecast {
   margin-top: 10px;
   display: grid;
   grid-template-rows: 25px 1fr;
   gap: 5px;
-  padding: 0 5px;
 }
 
 .days {
@@ -206,10 +215,10 @@ ion-icon:hover {
   grid-template-rows: 1fr 1fr 1fr;
   justify-items: center;
   gap: 5px;
+  padding: 0 30px;
 }
 
 .day {
-  border: 1px solid rgb(196, 196, 196);
   border-radius: 3px;
   display: grid;
   grid-template-columns: 1fr 2fr 2fr;
@@ -221,7 +230,6 @@ ion-icon:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 10px;
 }
 
 .left span {
@@ -231,12 +239,20 @@ ion-icon:hover {
 .middle {
   display: flex;
   justify-content: center;
-  font-style: italic;
+}
+
+.middle span {
+  font-size: 0.8rem;
 }
 
 .right {
   display: flex;
   flex-direction: column;
+  align-items: end;
+}
+
+.right span {
+  font-size: 0.8rem;
 }
 
 input {
@@ -249,4 +265,9 @@ input {
 
 ion-icon {
   font-size: 2rem;
+}
+
+img {
+  opacity: 1;
+  scale: 1;
 }

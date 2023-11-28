@@ -61,7 +61,13 @@ function displayWeatherInfo(obj) {
 
   const localTime = (obj.location.localtime).split(' ')[1];
   const time = document.getElementById('text-time');
-  time.textContent = localTime;
+  let amPm = ''
+  if (localTime.split(':')[0] < 12) {
+    amPm = 'am'
+  } else {
+    amPm = 'pm'
+  }
+  time.textContent = `local time ${localTime} ${amPm}`;
   const temp = document.getElementById('text-temp');
   if (unit == 'f') {
     temp.textContent = obj.current.temp_f + '°F'
