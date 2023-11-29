@@ -1,11 +1,11 @@
 import './style.css'
 import './reset.css'
-import cities from 'cities.json';
 
 const error = document.getElementById('error');
 const searchButton = document.getElementById('btn-search')
 const searchField = document.getElementById('search');
 const toggle = document.getElementById('toggle');
+
 let showingLocation = 'Los Angeles'
 let unit = 'f'
 
@@ -25,7 +25,6 @@ toggle.addEventListener('click', function() {
 
 
 searchButton.addEventListener('click', function() {
-  
   // Validate search.value
   if (searchField.value) {
     showingLocation = searchField.value
@@ -35,8 +34,6 @@ searchButton.addEventListener('click', function() {
 
 async function getWeather(city) {
   const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=64e203b4a6a54f138eb52839232511&q=${city}`);
-  //console.log('response: ', response);
-
   if (response.status === 401 || response.status === 403) {
     error.textContent = 'Error on the API key';
   } else if (response.status === 400) {
@@ -48,8 +45,6 @@ async function getWeather(city) {
     searchField.value = '';
     getForecast(city)
   }
-
-
 }
 
 function displayWeatherInfo(obj) {
@@ -78,13 +73,11 @@ function displayWeatherInfo(obj) {
   description.textContent = obj.current.condition.text;
   const icon = document.getElementById('icon');
   icon.src = obj.current.condition.icon
-
   error.textContent = ' ';
 }
 
 async function getForecast(city) {
   const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=64e203b4a6a54f138eb52839232511&q=${city}&days=3`);
-  
   if (response.status === 401 || response.status === 403) {
     error.textContent = 'Error on the API key';
   } else if (response.status === 400) {
@@ -118,7 +111,6 @@ function setBackgound(time) {
     body.style.color = 'white'
     search.style.color = 'white'
   }
-  
 }
 
 function displayHourlyForecast(obj) {
@@ -131,7 +123,6 @@ function displayHourlyForecast(obj) {
   let currentHour = parseInt(localtime.split(':')[0]);
   let currentday = 0
   for (let i = 0; i < 5; i++) {
-
     const hour = document.createElement('div');
     hour.classList.add('hour');
     hours.appendChild(hour);
@@ -150,14 +141,12 @@ function displayHourlyForecast(obj) {
       temp.textContent = obj.forecast.forecastday[currentday].hour[currentHour].temp_c + ' °C';
     }
 
-    
     if (currentHour < 23) {
       currentHour += 1
     } else {
       currentday += 1
       currentHour = 0
     }
-
   }
 }
 
@@ -167,7 +156,6 @@ function displayNextDaysForecast(obj) {
     days.removeChild(days.firstChild);
   }
 
-  //console.log(obj);
   for (let i = 0; i < 3; i++) {
     //console.log(obj.forecast.forecastday[i])
     const day = document.createElement('div');
@@ -208,22 +196,8 @@ function displayNextDaysForecast(obj) {
       minTemp.textContent = 'Min temp: ' + obj.forecast.forecastday[i].day.mintemp_c + ' °C';
     }
     right.appendChild(minTemp)
-
-
-    
-    //console.log((obj.forecast.forecastday[i].date).split('-')[2])
-    // console.log(obj.forecast.forecastday[i].astro.sunrise)
-    // console.log(obj.forecast.forecastday[i].astro.sunset)
-    // console.log(obj.forecast.forecastday[i].day.maxtemp_f)
-    // console.log(obj.forecast.forecastday[i].day.mintemp_f)
-    // console.log(obj.forecast.forecastday[i].day.condition.text)
-    // console.log(obj.forecast.forecastday[i].day.condition.icon)
   } 
 }
-
-// let randomLocation = parseInt(Math.random() * cities.length);
-// getWeather(cities[randomLocation].name)
-// getForecast(cities[randomLocation].name)
 
 getWeather(showingLocation)
 
