@@ -33,7 +33,7 @@ searchButton.addEventListener('click', function() {
 })
 
 async function getWeather(city) {
-  const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=64e203b4a6a54f138eb52839232511&q=${city}`);
+  const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=64e203b4a6a54f138eb52839232511&q=${city}`, {mode: 'cors'});
   if (response.status === 401 || response.status === 403) {
     error.textContent = 'Error on the API key';
   } else if (response.status === 400) {
@@ -77,7 +77,7 @@ function displayWeatherInfo(obj) {
 }
 
 async function getForecast(city) {
-  const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=64e203b4a6a54f138eb52839232511&q=${city}&days=3`);
+  const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=64e203b4a6a54f138eb52839232511&q=${city}&days=3`, {mode: 'cors'});
   if (response.status === 401 || response.status === 403) {
     error.textContent = 'Error on the API key';
   } else if (response.status === 400) {
